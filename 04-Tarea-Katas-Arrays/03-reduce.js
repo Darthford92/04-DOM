@@ -11,6 +11,7 @@
 -------------------------------------------------------------------------- */
 function sumarTotal(numeros) {
   // TU CÓDIGO AQUÍ 👇
+  return numeros.reduce((acumulador, numero) => acumulador + numero, 0);
 }
 
 /* --------------------------------------------------------------------------
@@ -20,6 +21,9 @@ function sumarTotal(numeros) {
 -------------------------------------------------------------------------- */
 function multiplicarTodo(numeros) {
   // TU CÓDIGO AQUÍ 👇
+  //ponemos como valor inicial 1 así el primer número del arrai se multiplica con el, lo que dará el
+  //mismo número, luego se van multiplicando con los demás.
+  return numeros.reduce((acumulador, numero) => acumulador * numero, 1);
 }
 
 /* --------------------------------------------------------------------------
@@ -30,6 +34,8 @@ function multiplicarTodo(numeros) {
 -------------------------------------------------------------------------- */
 function encontrarMaximo(numeros) {
   // TU CÓDIGO AQUÍ 👇
+  //usamos un operador ternario para definir que pasa con la condición dependiendo de si es true o false
+  return numeros.reduce((acumulador, numero) => numero > acumulador ? numero : acumulador, numeros[0]);
 }
 
 /* --------------------------------------------------------------------------
@@ -40,6 +46,19 @@ function encontrarMaximo(numeros) {
 -------------------------------------------------------------------------- */
 function contarOcurrencias(arr) {
   // TU CÓDIGO AQUÍ 👇
+  return arr.reduce((acumulador,string) => {
+    //acumulador[string] es lo mismo que acumulador.a ya que son formas equivalentes
+    //de entrar a una propiedad, string acá funciona como variable
+    //si ponemos ["string"] en vez de [string] buscará literalmente un string, así que hay que
+    //quitar las comillas 
+    acumulador[string] = (acumulador[string] || 0)+1;
+    // esto: || 0 significa que si la variable no existe se use 0 como valor inicial
+    //el OR devulve el primero que sea truthy, caso contrario el segundo
+    //o sea está diciendo si acumulador[string] existe y tiene valor usalo
+    //sino usa 0
+    // luego el +1 suma un punto si el elemento es encontrado nuevamente en el array
+    return acumulador;
+  }, {});
 }
 
 /* --------------------------------------------------------------------------
@@ -49,6 +68,12 @@ function contarOcurrencias(arr) {
 -------------------------------------------------------------------------- */
 function aplanar(arrayDeArrays) {
   // TU CÓDIGO AQUÍ 👇
+  // concat une dos arrays en uno
+  //acumulador.concat(array), []); es lo mismo que "en el array donde vas a acumular todo
+  // contaceta lo que hay dentro de este array (el que se le pasa a la función)"
+  //entonces por cada vuelta va a ir pegando los distintos array que encuentre dentro
+  //del array mayor
+  return arrayDeArrays.reduce((acumulador, array) => acumulador.concat(array), []);
 }
 
 /* --------------------------------------------------------------------------
@@ -59,6 +84,10 @@ function aplanar(arrayDeArrays) {
 -------------------------------------------------------------------------- */
 function totalCarrito(items) {
   // TU CÓDIGO AQUÍ 👇
+  // acumulador va a ir guardando la suma por cada objeto del array
+  //se realiza la multiplicación y el valor que da queda grabado en el acumulador
+  //y asi con todos los objetos
+  return items.reduce((acumulador, item) => acumulador + (item.precio * item.cantidad), 0);
 }
 
 /* --------------------------------------------------------------------------
@@ -70,6 +99,20 @@ function totalCarrito(items) {
 -------------------------------------------------------------------------- */
 function agruparPorCategoria(productos) {
   // TU CÓDIGO AQUÍ 👇
+  return productos.reduce((acumulador, producto) => {
+    //Creamos un if que evalúe si la clave existe en el nuevo objeto
+    //el acumulador será el objeto y [producto.categoría] será la clave
+    //es lo mismo que decir objeto.clave
+    if (!acumulador[producto.categoria]){
+      //en el caso de que no exista esa clave, se crea, dentro del objeto,
+      //un nuevo array con esa clave
+      acumulador[producto.categoria] = [];
+    }
+    //luego, se agarra el array y se le pushea el nombre del producto
+    acumulador[producto.categoria].push(producto.nombre);
+    //por ultimo se retorna el acumulador.
+    return acumulador;
+  } , {});
 }
 
 /* --------------------------------------------------------------------------
@@ -80,6 +123,14 @@ function agruparPorCategoria(productos) {
 -------------------------------------------------------------------------- */
 function promedio(numeros) {
   // TU CÓDIGO AQUÍ 👇
+  //creamos una constante que va a gaurdar la suma que el acumulador va haciendo
+  const suma = numeros.reduce((acumulador, numero) => numero + acumulador ,0);
+  //creamos otra constante dónde esa suma se divida por la cantidad de numeros sumados
+  // para dar con el promedio
+  const promedio = suma / numeros.length;
+  //retornamos el valor luego de multiplicarlo por 100 y dividirlo también por 100
+  // para simular un redondeo de dos cifras
+  return Math.round(promedio*100)/100;
 }
 
 /* --------------------------------------------------------------------------
@@ -90,6 +141,13 @@ function promedio(numeros) {
 -------------------------------------------------------------------------- */
 function construirOracion(palabras) {
   // TU CÓDIGO AQUÍ 👇
+  //
+  return palabras.reduce((acumulador, palabra) => 
+    //Se tuvo que poner un ternario para evitar que si se pasa un array vacio no se rompa todo
+    //entonces si acumulador es un string vacio se acumula la palabra sola
+    //sino se acumula el acumulador, el espacio y la palabra
+    //para evitar el uso de .join
+    acumulador === "" ? palabra : acumulador + " " + palabra,"");
 }
 
 /* --------------------------------------------------------------------------
@@ -100,6 +158,16 @@ function construirOracion(palabras) {
 -------------------------------------------------------------------------- */
 function calcularBalance(transacciones) {
   // TU CÓDIGO AQUÍ 👇
+  return transacciones.reduce((acumulador, transaccion) => {
+    //se crea un if para saber si la transacción es un ingreso
+    if (transaccion.tipo === "ingreso"){
+      //si lo es se retorna el acumulador sumado al monto
+      return acumulador + transaccion.monto;
+    } else {
+      //caso contrario es un agreso y se retorna el acumulador menos el monto
+      return acumulador - transaccion.monto;
+    }
+  },0);
 }
 
 // 🚨 ¡NO TOCAR ESTA LÍNEA!
