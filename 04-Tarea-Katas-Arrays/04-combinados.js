@@ -14,6 +14,11 @@
 -------------------------------------------------------------------------- */
 function ticketCompra(productos) {
   // TU CÓDIGO AQUÍ 👇
+  return productos
+  //primero filtramos por productos disponibles
+  .filter((producto) => producto.disponible === true)
+  //luego vamos acumulando el valor de cada precio*cantidad de productos disponibles
+  .reduce((acumulador, producto) => acumulador + producto.precio * producto.cantidad ,0);
 }
 
 /* --------------------------------------------------------------------------
@@ -26,6 +31,21 @@ function ticketCompra(productos) {
 -------------------------------------------------------------------------- */
 function resumenNotas(alumnos) {
   // TU CÓDIGO AQUÍ 👇
+    //constante que filtra por aprobados y extrae el nombre en string de cada uno
+    const aprobados = alumnos.filter((alumno) => alumno.nota >= 6).map((alumno) => alumno.nombre);
+    //constante que filtra por reprobados y extrae el nombre en string de cada uno
+    const reprobados = alumnos.filter((alumno) => alumno.nota < 6).map((alumno) => alumno.nombre);
+    // constante que suma todas las notas de todos los alumnos
+    const sumatoria = alumnos.reduce((acumulador, alumno) => acumulador + alumno.nota,0);
+    //constante que saca el promedio de todas las notas sumadas dicidiendola por la cantidad de notas
+    //para redondear a dos decimales multiplica por 100 dentro de math y divide luego fuera
+    const promedio = Math.round((sumatoria / alumnos.length)*100)/100;
+    //se retorna el objeto con las claves y avlores (asignados por las variables)
+    return {
+      aprobados: aprobados,
+      reprobados: reprobados,
+      promedio: promedio,
+    }
 }
 
 /* --------------------------------------------------------------------------
@@ -36,6 +56,13 @@ function resumenNotas(alumnos) {
 -------------------------------------------------------------------------- */
 function unicasEnMayusculas(palabras) {
   // TU CÓDIGO AQUÍ 👇
+  return palabras
+  //se filtran las palabras, indexOf permite filtrar las palabras que aparecen por primera vez
+  //su lógica es si en el array palabras, palabra aparece por primera vez en la posición actual, entonces guardala
+  //sino descartala
+  .filter((palabra, index) => palabras.indexOf(palabra) === index)
+  //por ultimo el map toma cada palabra por separado y la vuelve mayuscula con toUpperCase
+  .map((palabra) => palabra.toUpperCase());
 }
 
 /* --------------------------------------------------------------------------
@@ -46,6 +73,15 @@ function unicasEnMayusculas(palabras) {
 -------------------------------------------------------------------------- */
 function top3MasCaros(productos) {
   // TU CÓDIGO AQUÍ 👇
+  //con spread operator copiamos el objeto exactmanete igual
+  return [...productos]
+  //con sort le damos un orden para que se acomoden b.precio - a.precio significa de mayor(b) a menor(a)
+  .sort((a, b) => b.precio - a.precio )
+  //con slice limitamos y cortamos el array dejando solo la cantidad que queremos
+  // , en este caso solo 3
+  .slice(0, 3)
+  //por ultimo map los transforma y deja solo sus nombres
+  .map((producto) => producto.nombre);
 }
 
 /* --------------------------------------------------------------------------
@@ -58,6 +94,15 @@ function top3MasCaros(productos) {
 -------------------------------------------------------------------------- */
 function bonosPremium(usuarios) {
   // TU CÓDIGO AQUÍ 👇
+  return usuarios
+  //primero filtramos para ver cuales de los usuarios son premium
+  .filter((usuario) => usuario.esPremium === true)
+  //luego transformamos con map, para ello hay que con un spread operator
+  //copiar el objeto y luego modificarle la propiedad saldo
+  //pero nos va a quedar con muchos decimales así que hay que redondearlo
+  //lo cual podemos hacer con mathround(xxx*100)/100
+  //o con tofixed
+  .map((usuario) => ({...usuario, saldo: Math.round(usuario.saldo *1.1*100)/100}));
 }
 
 /* --------------------------------------------------------------------------
@@ -69,6 +114,18 @@ function bonosPremium(usuarios) {
 -------------------------------------------------------------------------- */
 function ventasPorRegion(ventas) {
   // TU CÓDIGO AQUÍ 👇
+  return ventas.reduce((acumulador, venta) => {
+    //creamos un fi que evalua si existen las regiones en el nuevo objeto
+    if (!acumulador[venta.region]){
+      //si no existe las crea y les asigna 0 de valor, ya que va a sumar un numero
+      acumulador[venta.region] = 0;
+    }
+    //si la region existe va a sumar todos los valores que haya en esa región en la
+    //parte del monto
+    acumulador[venta.region] += venta.monto ;
+    //luego retorna el valor
+    return acumulador;
+  } ,{} )
 }
 
 /* --------------------------------------------------------------------------
@@ -81,6 +138,15 @@ function ventasPorRegion(ventas) {
 -------------------------------------------------------------------------- */
 function inventarioCritico(productos) {
   // TU CÓDIGO AQUÍ 👇
+  return productos
+  //primero creamos un filter que busque solo los productos con stock menor
+  //al mínimo
+  .filter((producto) => producto.stock < producto.minimo)
+  //luego mapeamos sus nombres y los convertimos a mayusculas
+  .map((producto) => producto.nombre.toUpperCase())
+  //por ultimo usamos un sort para ordenarlos pero usando localeCompare
+  //que sirve para comparar strings
+  .sort((a, b) => a.localeCompare(b) );
 }
 
 /* --------------------------------------------------------------------------
@@ -93,6 +159,16 @@ function inventarioCritico(productos) {
 -------------------------------------------------------------------------- */
 function limpiarHistorial(historial) {
   // TU CÓDIGO AQUÍ 👇
+  //primero guardamos el historial transformado por map a minusculas en una constante para que luego filter no acceda
+  //directamente al historial que se le pasa a la funcion y se rompa.
+  //también usamos trim para descartar strings vacios
+  const histTransformado = historial.map((histGuardado) => histGuardado.toLowerCase().trim())
+  return histTransformado
+  //luego usamos filter con dos condiciones, primero evaluar si existe algo en el string y no está
+  //vacio y la segunda es que no exista ya ese string y eliminar así duplicados
+  .filter((histGuardado, index) => histGuardado && histTransformado.indexOf(histGuardado) === index)
+  //por ultimo ordenarlos con sort y localeCompare
+  .sort((a, b) => a.localeCompare(b));
 }
 
 /* --------------------------------------------------------------------------
@@ -104,6 +180,10 @@ function limpiarHistorial(historial) {
 -------------------------------------------------------------------------- */
 function rankingJugadores(jugadores) {
   // TU CÓDIGO AQUÍ 👇
+  return jugadores.filter((jugador) => jugador.activo === true)
+  .sort((a, b) => b.puntos - a.puntos)
+  .slice(0, 3)
+  .map((jugador, index) => `${index+1}. ${jugador.nombre} — ${jugador.puntos} pts` );
 }
 
 /* --------------------------------------------------------------------------
@@ -115,6 +195,9 @@ function rankingJugadores(jugadores) {
 -------------------------------------------------------------------------- */
 function salarioPromedioTech(empleados) {
   // TU CÓDIGO AQUÍ 👇
+  const tecActivos = empleados.filter((empleado) => empleado.departamento === "tecnología" && empleado.activo === true);
+  const promedioSalarios = tecActivos.reduce((acumulador, empleado) => acumulador + empleado.salario ,0);
+  return tecActivos.length === 0 ? 0 : Number((promedioSalarios/tecActivos.length).toFixed(2));
 }
 
 // 🚨 ¡NO TOCAR ESTA LÍNEA!

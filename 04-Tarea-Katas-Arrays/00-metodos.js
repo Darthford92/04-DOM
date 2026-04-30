@@ -6,6 +6,7 @@
 ========================================================================== */
 function aplicarDescuento(precios) {
   // TU CÓDIGO AQUÍ 👇
+  //retorno un array nuevo de precios con la modificación de los valores
   return precios.map((precio) => precio * 0.8);
 }
 
@@ -16,6 +17,9 @@ function aplicarDescuento(precios) {
 ========================================================================== */
 function filtrarDisponibles(productos) {
   // TU CÓDIGO AQUÍ 👇
+  //retorno un array nuevo solo con los elementos que hay según la propiedad
+  //enStock
+  return productos.filter(p => p.enStock);
 }
 
 /* ==========================================================================
@@ -25,6 +29,15 @@ function filtrarDisponibles(productos) {
 ========================================================================== */
 function calcularTotal(carrito) {
   // TU CÓDIGO AQUÍ 👇
+  //primero uso reduce en el parametro de entrada(carrito)
+  //agrego los parametros que vamos a usar entre parentesis
+  //acumulador ira recorriendo, como un for
+  //y valor actual irá sumando los números que haya en cada posición
+  //luego retorno tanto el valor sumado hacia el nuevo array
+  //como el nuevo array hacia afuera de la funcion
+  return carrito.reduce((acumulador, valorActual) => {
+    return acumulador + valorActual;
+  }, 0);
 }
 
 /* ==========================================================================
@@ -35,6 +48,7 @@ function calcularTotal(carrito) {
 ========================================================================== */
 function llamarSiguiente(salaDeEspera) {
   // TU CÓDIGO AQUÍ 👇
+  return `Atendiendo a: ${salaDeEspera.shift()}`;
 }
 
 // 🚨 ¡NO TOCAR ESTA LÍNEA!

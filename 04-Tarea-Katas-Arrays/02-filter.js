@@ -4,6 +4,8 @@
    ⚠️  NO uses bucles for/while — retorná siempre un array nuevo.
 ========================================================================== */
 
+//--Para mi-- array.filter((elemento) => condicion); 
+
 /* --------------------------------------------------------------------------
    KATA 1 — Solo Adultos
    Dado un array de edades, retorná solo las que sean >= 18.
@@ -11,6 +13,7 @@
 -------------------------------------------------------------------------- */
 function soloAdultos(edades) {
   // TU CÓDIGO AQUÍ 👇
+  return edades.filter((edad) => edad >= 18);
 }
 
 /* --------------------------------------------------------------------------
@@ -20,6 +23,7 @@ function soloAdultos(edades) {
 -------------------------------------------------------------------------- */
 function palabrasLargas(palabras) {
   // TU CÓDIGO AQUÍ 👇
+  return palabras.filter((palabra) => palabra.length > 5);
 }
 
 /* --------------------------------------------------------------------------
@@ -29,6 +33,7 @@ function palabrasLargas(palabras) {
 -------------------------------------------------------------------------- */
 function enStock(productos) {
   // TU CÓDIGO AQUÍ 👇
+  return productos.filter((producto) => producto.enStock === true );
 }
 
 /* --------------------------------------------------------------------------
@@ -38,6 +43,7 @@ function enStock(productos) {
 -------------------------------------------------------------------------- */
 function sinNegativos(numeros) {
   // TU CÓDIGO AQUÍ 👇
+  return numeros.filter((numero) => numero >= 0);
 }
 
 /* --------------------------------------------------------------------------
@@ -47,6 +53,7 @@ function sinNegativos(numeros) {
 -------------------------------------------------------------------------- */
 function emailsValidos(emails) {
   // TU CÓDIGO AQUÍ 👇
+  return emails.filter((email) => email.includes(".") && email.includes("@"));
 }
 
 /* --------------------------------------------------------------------------
@@ -56,6 +63,7 @@ function emailsValidos(emails) {
 -------------------------------------------------------------------------- */
 function solosPares(numeros) {
   // TU CÓDIGO AQUÍ 👇
+  return numeros.filter((numero) => numero % 2 === 0);
 }
 
 /* --------------------------------------------------------------------------
@@ -65,6 +73,7 @@ function solosPares(numeros) {
 -------------------------------------------------------------------------- */
 function usuariosActivos(usuarios) {
   // TU CÓDIGO AQUÍ 👇
+  return usuarios.filter((usuario) => usuario.activo === true);
 }
 
 /* --------------------------------------------------------------------------
@@ -75,6 +84,8 @@ function usuariosActivos(usuarios) {
 -------------------------------------------------------------------------- */
 function eliminarFalsy(arr) {
   // TU CÓDIGO AQUÍ 👇
+  //solo se pone el elemento como condición, javascript lo toma como que se busca su valor boolean
+  return arr.filter((valor) => valor);
 }
 
 /* --------------------------------------------------------------------------
@@ -85,6 +96,7 @@ function eliminarFalsy(arr) {
 -------------------------------------------------------------------------- */
 function filtroPrecio(precios, rango) {
   // TU CÓDIGO AQUÍ 👇
+  return precios.filter((precio) => precio >= rango.min && precio <= rango.max);
 }
 
 /* --------------------------------------------------------------------------
@@ -95,6 +107,15 @@ function filtroPrecio(precios, rango) {
 -------------------------------------------------------------------------- */
 function sinDuplicados(numeros) {
   // TU CÓDIGO AQUÍ 👇
+  //para poder buscar y comparar los números necesitamos dos parametros
+  //numero que retorna el elemento
+  //y index que retorna su posición
+  return numeros.filter((numero, index) => numeros.indexOf(numero) === index);
+  //numeros.indexOf(numero) -> dentro del array numeros, buscá la primera vez que aparece
+  //este numero
+  //=== index -> fijate si la posiciòn que encontraste es igual a la posición actual
+  // si es igual es porque la primera posición en la que aparece ese número es esa
+  //si aparece de nuevo se descarta.
 }
 
 // 🚨 ¡NO TOCAR ESTA LÍNEA!

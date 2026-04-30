@@ -12,6 +12,7 @@
 -------------------------------------------------------------------------- */
 function aplicarDescuento(precios) {
   // TU CÓDIGO AQUÍ 👇
+  return precios.map((precio) => precio * 0.8);
 }
 
 /* --------------------------------------------------------------------------
@@ -20,7 +21,8 @@ function aplicarDescuento(precios) {
    Ej: [1, 2, 3] → [2, 4, 6]
 -------------------------------------------------------------------------- */
 function doblar(numeros) {
-  // TU CÓDIGO AQUÍ 👇
+  // TU CÓDIGO AQUÍ 
+  return numeros.map((numero) => numero * 2);
 }
 
 /* --------------------------------------------------------------------------
@@ -31,6 +33,7 @@ function doblar(numeros) {
 -------------------------------------------------------------------------- */
 function nombresCompletos(personas) {
   // TU CÓDIGO AQUÍ 👇
+  return personas.map((persona) => `${persona.nombre} ${persona.apellido}` );
 }
 
 /* --------------------------------------------------------------------------
@@ -40,6 +43,7 @@ function nombresCompletos(personas) {
 -------------------------------------------------------------------------- */
 function cuadrados(numeros) {
   // TU CÓDIGO AQUÍ 👇
+  return numeros.map ((numero) => numero*numero);
 }
 
 /* --------------------------------------------------------------------------
@@ -49,7 +53,8 @@ function cuadrados(numeros) {
    Ej: [0, 100] → [32, 212]
 -------------------------------------------------------------------------- */
 function celsiusAFahrenheit(celsius) {
-  // TU CÓDIGO AQUÍ 👇
+  // TU CÓDIGO AQUÍ 
+  return celsius.map((grado) => grado * 9/5 + 32);
 }
 
 /* --------------------------------------------------------------------------
@@ -60,6 +65,7 @@ function celsiusAFahrenheit(celsius) {
 -------------------------------------------------------------------------- */
 function agregarIVA(precios) {
   // TU CÓDIGO AQUÍ 👇
+  return precios.map((precio) => Number((precio*1.21).toFixed(2)));
 }
 
 /* --------------------------------------------------------------------------
@@ -69,6 +75,7 @@ function agregarIVA(precios) {
 -------------------------------------------------------------------------- */
 function envolverEnLi(items) {
   // TU CÓDIGO AQUÍ 👇
+  return items.map((item) =>  `<li>${item}</li>`);
 }
 
 /* --------------------------------------------------------------------------
@@ -79,6 +86,7 @@ function envolverEnLi(items) {
 -------------------------------------------------------------------------- */
 function extraerNombres(productos) {
   // TU CÓDIGO AQUÍ 👇
+  return productos.map((producto) => producto.nombre);
 }
 
 /* --------------------------------------------------------------------------
@@ -89,6 +97,7 @@ function extraerNombres(productos) {
 -------------------------------------------------------------------------- */
 function numerarLista(items) {
   // TU CÓDIGO AQUÍ 👇
+  return items.map((item,index) => `${index+1}. ${item}` );
 }
 
 /* --------------------------------------------------------------------------
@@ -100,6 +109,19 @@ function numerarLista(items) {
 -------------------------------------------------------------------------- */
 function normalizarUsuarios(usuarios) {
   // TU CÓDIGO AQUÍ 👇
+  return usuarios.map((usuario) => {
+    return { 
+      //el spread operator ... crea un objeto nuevo con las mismas caracteristicas que el original
+      //lo usamos para modificar el objeto original
+      ...usuario, 
+      //ahora reasignamos el valor en nombre, esta vez todo en mayusculas
+      nombre: usuario.nombre.toUpperCase(),
+      //la clave valor edad no se toca
+      //creamos una nueva clave esMayor y le asignamos un ternario para que guarde true o false
+      //segun si es mayor o menor de edad
+      esMayor: usuario.edad >= 18 ? true : false,
+    };
+  });
 }
 
 // 🚨 ¡NO TOCAR ESTA LÍNEA!
